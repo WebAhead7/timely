@@ -32,12 +32,42 @@ const createDoctorCalendar = (id, cal) => {
   ]);
 };
 
+// insert into doctors (firstname, lastname, email, title, pass, dsc, imgUrl) values('alaa','bashiyi','alaabashiy@gmail.com','skin','321321','doccctor me','linktoimage');
+
+//clientLogin
+function clientLogin() {}
+
+//clientSignup
+function clientSignup(obj) {
+  const { firstname, lastname, email, pass, imgUrl } = obj;
+  return db.query(
+    "INSERT INTO clients (firstname,lastname,email,pass,imgUrl) VALUES ('$1','$2','$3','$4',$5)",
+    [firstname, lastname, email, pass, imgUrl]
+  );
+}
+
+//getClientsEmails
+function getClientsEmails() {
+  return db
+    .query("SELECT email FROM clients")
+    .then((clientsEmails) => clientsEmails.rows);
+}
+
+//getAllClientsData from DB
+function getPasswordByEmail(email) {
+  return db
+    .query(`SELECT pass FROM clients WHERE email=${email}`)
+    .then((password) => password.rows);
+}
+
 module.exports = {
   list,
   doctorCalendar,
   clientProfile,
   getDoctorCale,
   createDoctorCalendar,
+  clientLogin,
+  getClientsEmails,
+  getPasswordByEmail,
+  clientSignup,
 };
-
-// insert into doctors (firstname, lastname, email, title, pass, dsc, imgUrl) values('alaa','bashiyi','alaabashiy@gmail.com','skin','321321','doccctor me','linktoimage');
