@@ -1,15 +1,8 @@
 const express = require("express");
 const server = express();
 const router = express.Router();
+const list = require("../handlers/mainHandlers/list");
 
-router.get("/main", (req, res) => {
-  console.log("main CALL");
-  res.send("main");
-});
-
-router.get("/main/test", (req, res) => {
-  console.log("main CALL");
-  res.send("main");
-});
+router.get("/main/get-list", list);
 
 module.exports = router;

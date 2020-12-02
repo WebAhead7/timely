@@ -7,10 +7,11 @@ const doctorSignUp = require("../handlers/doctorHandlers/signup");
 const createCalendar = require("../handlers/doctorHandlers/createCalendar");
 const doctorCalendar = require("../handlers/doctorHandlers/doctorCalendar");
 const doctorClinic = require("../handlers/doctorHandlers/doctorClinic");
+const doctorProfile = require("../handlers/doctorHandlers/profile");
 
 router.post("/doctor/login", doctorLogin);
 
-router.post("/doctor/signup",doctorSignUp);
+router.post("/doctor/signup", doctorSignUp);
 
 router.post("/doctor/:id/create-calendar", createCalendar);
 
@@ -18,5 +19,6 @@ router.get("/doctor/:id/doctor-calendar", doctorCalendar);
 
 router.get("/doctor/:id/doctor-clinic", doctorClinic);
 
+router.get("/doctor/:id/doctor-profile", doctorProfile);
 
 module.exports = router;
