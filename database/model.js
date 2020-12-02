@@ -1,14 +1,42 @@
 const db = require("./connection");
 
-const getList = () => {
+function doctorSignUp(doctor) {
+  return db
+    .query(
+      "INSERT INTO doctors(firstname,lastname,email,title,pass, dsc,imgUrl )  VALUES($1 , $2 , $3 , $4 ,$5, $6, $7)",
+      Object.values(doctor)
+    )
+    .then((result) => {
+      console.log((data) => data.rows);
+    });
+}
+
+function getDoctorsEmail() {
+  return db.query("SELECT email FROM doctors").then((data) => data.rows);
+}
+
+function doctorLogin(email) {
+  console.log("model email", email);
+  return db
+    .query(`SELECT email,pass FROM doctors WHERE email = '${email}'`)
+    .then((result) => result.rows);
+}
+
+const list = () => {
   return db.query(`select * from doctors`).then((result) => result.rows);
+};
+
+const updateDoctorCalendar = (id, calendar) => {
+  return db.query(`update calendar set cal_data = ($1) where doc_id = ($2)`, [
+    calendar,
+    id,
+  ]);
 };
 
 const getDoctorClinic = (id) => {
   return db
     .query(
-      `
-          select doctors.id ,doctors.firstname, doctors.lastname, doctors.imgUrl, doctors.title, doctors.dsc, calendar.cal_data from doctors inner join calendar on doctors.id = calendar.doc_id`
+      `select doctors.firstname, doctors.lastname, doctors.imgUrl, doctors.title, doctors.dsc, cal_data from doctors inner join calendar on doctors.id = calendar.doc_id`
     )
     .then((result) => result.rows);
 };
@@ -19,20 +47,15 @@ const getDoctorCalendar = (id) => {
     .then((cal) => cal.rows);
 };
 
-const getClientProfile = (id) => {
+const clientProfile = (id) => {
   return db
     .query(`select * from clients where clients.id = ${id}`)
-    .then((result) => result.rows);
-};
-const getDoctorProfile = (id) => {
-  return db
-    .query(`select * from doctors where doctors.id = ${id}`)
     .then((result) => result.rows);
 };
 
 const createDoctorCalendar = (id, cal) => {
   return db.query(`insert into calendar (cal_data, doc_id) values($1, $2)`, [
-    cal,
+    JSON.stringify(cal),
     id,
   ]);
 };
@@ -65,10 +88,9 @@ function getPasswordByEmail(email) {
 }
 
 module.exports = {
-  getList,
+  list,
   getDoctorClinic,
-  getClientProfile,
-  getDoctorProfile,
+  clientProfile,
   getDoctorCalendar,
   createDoctorCalendar,
   getClientsEmails,
@@ -77,9 +99,5 @@ module.exports = {
   updateDoctorCalendar,
   getDoctorsEmail,
   doctorLogin,
-<<<<<<< HEAD
-  doctorSignUp
-=======
   doctorSignUp,
->>>>>>> main
 };
