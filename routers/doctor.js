@@ -10,13 +10,12 @@ const doctorClinic = require("../handlers/doctorHandlers/doctorClinic");
 
 router.post("/doctor/login", doctorLogin);
 
-router.post("/doctor/signup",doctorSignUp);
+router.post("/doctor/signup", doctorSignUp);
 
 router.post("/doctor/:id/create-calendar", createCalendar);
 
 router.get("/doctor/:id/doctor-calendar", doctorCalendar);
 
 router.get("/doctor/:id/doctor-clinic", doctorClinic);
-
 
 module.exports = router;

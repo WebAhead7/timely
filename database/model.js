@@ -4,6 +4,12 @@ const list = () => {
   return db.query(`select * from doctors`).then((result) => result.rows);
 };
 
+function doctorLogin(email) {
+  return db
+    .query(`SELECT email,pass FROM doctors WHERE email = '${email}'`)
+    .then((result) => result.rows);
+}
+
 const doctorCalendar = (id) => {
   return db
     .query(
@@ -68,4 +74,5 @@ module.exports = {
   getClientsEmails,
   getPasswordByEmail,
   clientSignup,
+  doctorLogin,
 };

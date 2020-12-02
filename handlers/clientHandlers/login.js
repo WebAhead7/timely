@@ -1,39 +1,32 @@
 const model = require("../../database/model");
 
 function clientLogin(req, res, next) {
-  console.log("i am in the login handler");
   const obj = {
-    message: "",
+    msg: "",
     email: "",
-    password: "",
+    pass: "",
   };
-
   const { email, pass } = req.body;
   model
     .getClientsEmails()
     .then((emails) => {
       const emailsArr = emails.map((obj) => obj.email);
       if (!emailsArr.find((em) => em === email)) {
-        console.log("no email found");
-        obj.message = "email doesn't exists";
+        obj.msg = "email doesn't exists";
         obj.email = false;
-        res.send(obj);
-        next();
+        res.status(404).send(obj);
       } else {
         model.getPasswordByEmail(email).then((password) => {
-          console.log("PASSSS:", password);
           if (pass === password[0].pass) {
-            obj.message = "Welcome";
+            obj.msg = "Welcome";
             obj.email = true;
-            obj.password = true;
-            res.send(obj);
-            next();
+            obj.pass = true;
+            res.status(200).send(obj);
           } else {
-            obj.message = "incorrect password";
+            obj.msg = "incorrect password";
             obj.email = true;
-            obj.password = false;
-            res.send(obj);
-            next();
+            obj.pass = false;
+            res.status(404).send(obj);
           }
         });
       }
