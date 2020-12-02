@@ -1,4 +1,4 @@
-export const calendar = {
+const calendar = {
   sunday: [
     { hour: 9, istaken: false, takenby: null },
     { hour: 10, istaken: false, takenby: null },
@@ -85,3 +85,5 @@ export const calendar = {
   ],
   days: [],
 };
+
+// exports.module = calendar;
