@@ -18,11 +18,13 @@ function clientLogin(req, res, next) {
         res.status(404).send(obj);
       } else {
         model.getPasswordByEmail(email).then((password) => {
+          console.log(password);
           if (pass === password[0].pass) {
             obj.msg = "Welcome";
             obj.email = true;
             obj.pass = true;
             obj.auth = true;
+            obj.id = password[0].id;
             res.status(200).send(obj);
           } else {
             obj.msg = "incorrect password";
