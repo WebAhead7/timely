@@ -1,8 +1,25 @@
 const db = require("./connection");
 
-const list = () => {
+function doctorSignUp(doctor) {
+  return db
+    .query(
+      "INSERT INTO doctors(firstname,lastname,email,title,pass, dsc,imgUrl )  VALUES($1 , $2 , $3 , $4 ,$5, $6, $7)",
+      Object.values(doctor)
+    )
+    .then((result) => {
+      console.log((data) => data.rows);
+    });
+}
+
+function getDoctorsEmail() {
+  return db.query("SELECT email FROM doctors").then((data) => data.rows);
+}
+
+
+const getList = () => {
   return db.query(`select * from doctors`).then((result) => result.rows);
 };
+
 
 function doctorLogin(email) {
   return db
@@ -11,23 +28,30 @@ function doctorLogin(email) {
 }
 
 const doctorCalendar = (id) => {
+
+const getDoctorClinic = (id) => {
   return db
     .query(
       `
-          select doctors.firstname, doctors.lastname, doctors.imgUrl, doctors.title, doctors.dsc from doctors where doctors.id = ${id} right join calendar on doctors.id = calendar.doc_id`
+          select doctors.id ,doctors.firstname, doctors.lastname, doctors.imgUrl, doctors.title, doctors.dsc, calendar.cal_data from doctors inner join calendar on doctors.id = calendar.doc_id`
     )
     .then((result) => result.rows);
 };
 
-const getDoctorCale = (id) => {
+const getDoctorCalendar = (id) => {
   return db
     .query(`select * from calendar where calendar.doc_id = ${id} `)
     .then((cal) => cal.rows);
 };
 
-const clientProfile = (id) => {
+const getClientProfile = (id) => {
   return db
     .query(`select * from clients where clients.id = ${id}`)
+    .then((result) => result.rows);
+};
+const getDoctorProfile = (id) => {
+  return db
+    .query(`select * from doctors where doctors.id = ${id}`)
     .then((result) => result.rows);
 };
 
@@ -66,13 +90,16 @@ function getPasswordByEmail(email) {
 }
 
 module.exports = {
-  list,
-  doctorCalendar,
-  clientProfile,
-  getDoctorCale,
+  getList,
+  getDoctorClinic,
+  getClientProfile,
+  getDoctorProfile,
+  getDoctorCalendar,
   createDoctorCalendar,
   getClientsEmails,
   getPasswordByEmail,
   clientSignup,
+  getDoctorsEmail,
   doctorLogin,
+  doctorSignUp,
 };

@@ -2,7 +2,7 @@ const { getDoctorCalendar } = require("../../database/model");
 
 const doctorCalendar = (req, res, next) => {
   const id = req.params.id;
-  let data;
+
   getDoctorCalendar(id)
     .then((cal) => {
       const data = cal[0];

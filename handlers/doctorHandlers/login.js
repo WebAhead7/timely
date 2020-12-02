@@ -1,4 +1,5 @@
 const model = require("../../database/model");
+
 function doctorLogin(req, res, next) {
   const doctorObj = { email: "", msg: "", pass: "" };
   model
@@ -23,3 +24,6 @@ function doctorLogin(req, res, next) {
 }
 
 module.exports = doctorLogin;
+
+          
+          
