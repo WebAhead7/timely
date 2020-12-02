@@ -65,7 +65,6 @@ module.exports = {
   clientProfile,
   getDoctorCale,
   createDoctorCalendar,
-  clientLogin,
   getClientsEmails,
   getPasswordByEmail,
   clientSignup,
