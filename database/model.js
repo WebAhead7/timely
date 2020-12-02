@@ -97,5 +97,8 @@ module.exports = {
   getPasswordByEmail,
   clientSignup,
   updateDoctorCalendar,
+  getDoctorsEmail,
+  doctorLogin,
+  doctorSignUp
 };
 
