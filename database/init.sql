@@ -14,8 +14,6 @@ CREATE TABLE doctors (
     
 );
 
-
-
 CREATE TABLE clients (
     id SERIAL PRIMARY KEY,
     firstname TEXT NOT NULL,

@@ -4,16 +4,22 @@ const list = () => {
   return db.query(`select * from doctors`).then((result) => result.rows);
 };
 
-const doctorCalendar = (id) => {
+const updateDoctorCalendar = (id, calendar) => {
+  return db.query(`update calendar set cal_data = ($1) where doc_id = ($2)`, [
+    calendar,
+    id,
+  ]);
+};
+
+const getDoctorClinic = (id) => {
   return db
     .query(
-      `
-          select doctors.firstname, doctors.lastname, doctors.imgUrl, doctors.title, doctors.dsc from doctors where doctors.id = ${id} right join calendar on doctors.id = calendar.doc_id`
+      `select doctors.firstname, doctors.lastname, doctors.imgUrl, doctors.title, doctors.dsc, cal_data from doctors inner join calendar on doctors.id = calendar.doc_id`
     )
     .then((result) => result.rows);
 };
 
-const getDoctorCale = (id) => {
+const getDoctorCalendar = (id) => {
   return db
     .query(`select * from calendar where calendar.doc_id = ${id} `)
     .then((cal) => cal.rows);
@@ -27,7 +33,7 @@ const clientProfile = (id) => {
 
 const createDoctorCalendar = (id, cal) => {
   return db.query(`insert into calendar (cal_data, doc_id) values($1, $2)`, [
-    cal,
+    JSON.stringify(cal),
     id,
   ]);
 };
@@ -62,12 +68,13 @@ function getPasswordByEmail(email) {
 
 module.exports = {
   list,
-  doctorCalendar,
+  getDoctorClinic,
   clientProfile,
-  getDoctorCale,
+  getDoctorCalendar,
   createDoctorCalendar,
   clientLogin,
   getClientsEmails,
   getPasswordByEmail,
   clientSignup,
+  updateDoctorCalendar,
 };
