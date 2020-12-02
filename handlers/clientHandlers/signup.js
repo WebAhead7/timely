@@ -6,13 +6,13 @@ function clientSignup(req, res, next) {
   model
     .getClientsEmails()
     .then((emails) => {
-      const emailsArr = emails.map((objs) => objs.email);
-      const valid = emailsArr.every((email) => email !== clientEmail);
-      if (valid) {
+      const emailsArr = emails.map((obj) => obj.email);
+      const valid = emailsArr.some((email) => email === clientEmail);
+      if (!valid) {
         model
           .clientSignup(clientObj)
           .then(() => {
-            res.status(200);
+            res.status(200).send("Email Created Successfully");
             next();
           })
           .catch(next);
