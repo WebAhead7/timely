@@ -10,22 +10,22 @@ const createAppointment = (req, res, next) => {
     const calendar = JSON.parse(cal[0].cal_data);
     const messageObject = { message: "", status: 200 };
 
-    calendar[day].forEach((hours) => {
-      if (hours.hour === +hour) {
-        if (!hours.istaken) {
-          hours.istaken = true;
-          hours.takenby = clientid;
-          messageObject.message = "done";
-          messageObject.status = 200;
-        } else {
-          messageObject.message = "taken";
-          messageObject.status = 400;
-        }
-      }
-    });
+    // calendar[day].forEach((hours) => {
+    //   if (hours.hour === +hour) {
+    //     if (!hours.istaken) {
+    //       hours.istaken = true;
+    //       hours.takenby = clientid;
+    //       messageObject.message = "done";
+    //       messageObject.status = 200;
+    //     } else {
+    //       messageObject.message = "taken";
+    //       messageObject.status = 400;
+    //     }
+    //   }
+    // });
 
     // console.log(calendar);
-    checkAllAppointments(calendar);
+    checkAllAppointments(calendar, clientid);
     // const newCalendar = JSON.stringify(calendar);
 
     // updateDoctorCalendar(docid, newCalendar).catch((e) => console.log(e));
@@ -34,15 +34,16 @@ const createAppointment = (req, res, next) => {
   });
 };
 
-const checkAllAppointments = (calendar) => {
-  let hasAppointment;
+const checkAllAppointments = (calendar, id) => {
+  let hasAppointment = true;
+
   Object.keys(calendar).forEach((day) => {
+    if (!hasAppointment) return;
     if (calendar[day] != "days") {
-      hasAppointment = calendar[day].every((hour) => hour.istaken === false);
+      hasAppointment = calendar[day].every((hour) => hour.takenby !== id);
     }
   });
 
-  console.log(hasAppointment);
   return hasAppointment;
 };
 
