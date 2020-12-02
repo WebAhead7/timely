@@ -6,7 +6,7 @@ CREATE TABLE doctors (
     id SERIAL PRIMARY KEY,
     firstname TEXT NOT NULL,
     lastname TEXT NOT NULL,
-    email TEXT NOT NULL,
+    email VARCHAR(255) NOT NULL,
     title TEXT NOT NULL,
     pass VARCHAR(255) NOT NULL,
     dsc TEXT NOT NULL,

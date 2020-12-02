@@ -1,14 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const doctorLogin = require("../handlers/doctorHandlers/login");
+const doctorSignUp = require("../handlers/doctorHandlers/signup");
 
-router.get("/doctor", (req, res) => {
-  console.log("CLIENT CALL");
-  res.send("DOCTOR");
-});
+router.post("/doctor/login", doctorLogin);
 
-router.get("/doctor/test", (req, res) => {
-  console.log("DOCTOR CALL");
-  res.send("DOCTOR");
-});
+router.post("/doctor/signup",doctorSignUp);
 
 module.exports = router;
