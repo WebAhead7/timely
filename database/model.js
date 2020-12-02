@@ -40,16 +40,15 @@ const createDoctorCalendar = (id, cal) => {
 
 // insert into doctors (firstname, lastname, email, title, pass, dsc, imgUrl) values('alaa','bashiyi','alaabashiy@gmail.com','skin','321321','doccctor me','linktoimage');
 
-//clientLogin
-function clientLogin() {}
-
 //clientSignup
 function clientSignup(obj) {
   const { firstname, lastname, email, pass, imgUrl } = obj;
-  return db.query(
-    "INSERT INTO clients (firstname,lastname,email,pass,imgUrl) VALUES ('$1','$2','$3','$4',$5)",
-    [firstname, lastname, email, pass, imgUrl]
-  );
+  return db
+    .query(
+      "INSERT INTO clients (firstname,lastname,email,pass,imgUrl) VALUES ($1,$2,$3,$4,$5)",
+      [firstname, lastname, email, pass, imgUrl]
+    )
+    .then((data) => data.rows);
 }
 
 //getClientsEmails
@@ -59,10 +58,10 @@ function getClientsEmails() {
     .then((clientsEmails) => clientsEmails.rows);
 }
 
-//getAllClientsData from DB
+//getPasswordByEmail from DB
 function getPasswordByEmail(email) {
   return db
-    .query(`SELECT pass FROM clients WHERE email=${email}`)
+    .query(`SELECT pass FROM clients WHERE email='${email}'`)
     .then((password) => password.rows);
 }
 
@@ -72,7 +71,6 @@ module.exports = {
   clientProfile,
   getDoctorCalendar,
   createDoctorCalendar,
-  clientLogin,
   getClientsEmails,
   getPasswordByEmail,
   clientSignup,
