@@ -2,7 +2,7 @@ const express = require("express");
 const clientRouter = require("./routers/client");
 const doctorRouter = require("./routers/doctor");
 const mainRouter = require("./routers/main");
-
+const db = require("./database/connection");
 const server = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");

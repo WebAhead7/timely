@@ -23,7 +23,8 @@ CREATE TABLE clients (
 );
 
 CREATE TABLE calendar (
-    doc_id VARCHAR(255) NOT NULL,
+    id SERIAL PRIMARY KEY,
+    doc_id INTEGER REFERENCES doctors(id),
     cal_data TEXT NOT NULL
 );
 

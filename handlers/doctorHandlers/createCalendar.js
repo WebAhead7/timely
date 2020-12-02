@@ -1,3 +1,5 @@
+const { getDoctorCale, createDoctorCalendar } = require("../../database/model");
+
 const calendar = {
   sunday: [
     { hour: 9, istaken: false, takenby: null },
@@ -86,4 +88,22 @@ const calendar = {
   days: [],
 };
 
-// exports.module = calendar;
+const createCalendar = (req, res, next) => {
+  const id = req.params.id;
+  let isExist = true;
+  // getDoctorCale(id).then((cal) => {
+  //   console.log(cal);
+  //   if (JSON.stringify(cal) === "[]") cal = true;
+  //   cal ? (isExist = true) : (isExist = false);
+  //   console.log(cal);
+  // });
+
+  if (isExist) {
+    createDoctorCalendar(id, calendar).catch((e) => console.log(e));
+    res.status(201).send("Calendar created");
+  } else {
+    res.status(301).send("Already created!");
+  }
+};
+
+module.exports = createCalendar;
