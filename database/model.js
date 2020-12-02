@@ -15,16 +15,19 @@ function getDoctorsEmail() {
   return db.query("SELECT email FROM doctors").then((data) => data.rows);
 }
 
+
+const getList = () => {
+  return db.query(`select * from doctors`).then((result) => result.rows);
+};
+
+
 function doctorLogin(email) {
-  console.log("model email", email);
   return db
     .query(`SELECT email,pass FROM doctors WHERE email = '${email}'`)
     .then((result) => result.rows);
 }
 
-const getList = () => {
-  return db.query(`select * from doctors`).then((result) => result.rows);
-};
+const doctorCalendar = (id) => {
 
 const getDoctorClinic = (id) => {
   return db

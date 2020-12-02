@@ -1,18 +1,17 @@
 const model = require("../../database/model");
 
 function doctorLogin(req, res, next) {
-  const doctorObj = { email: "", msg: "", password: "" };
-  console.log("email", req.body.email);
+  const doctorObj = { email: "", msg: "", pass: "" };
   model
     .doctorLogin(req.body.email)
     .then((doctor) => {
-      console.log("login data", doctor);
-
       if (doctor.length != 0) {
         if (`${doctor[0].pass}` === req.body.pass) {
+          doctorObj.msg = "Welcome";
           res.status(200).send(doctorObj);
         } else {
-          doctorObj.password = false;
+          doctorObj.pass = false;
+          doctorObj.msg = "Incorrect Password";
           res.status(200).send(doctorObj);
         }
       } else {
@@ -25,3 +24,6 @@ function doctorLogin(req, res, next) {
 }
 
 module.exports = doctorLogin;
+
+          
+          

@@ -19,6 +19,9 @@ router.get("/doctor/:id/doctor-calendar", doctorCalendar);
 
 router.get("/doctor/:id/doctor-clinic", doctorClinic);
 
+
+
 router.get("/doctor/:id/doctor-profile", doctorProfile);
+
 
 module.exports = router;
