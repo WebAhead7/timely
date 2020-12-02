@@ -5,6 +5,7 @@ function clientLogin(req, res, next) {
     msg: "",
     email: "",
     pass: "",
+    auth: false,
   };
   const { email, pass } = req.body;
   model
@@ -21,6 +22,7 @@ function clientLogin(req, res, next) {
             obj.msg = "Welcome";
             obj.email = true;
             obj.pass = true;
+            obj.auth = true;
             res.status(200).send(obj);
           } else {
             obj.msg = "incorrect password";

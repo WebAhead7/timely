@@ -24,6 +24,3 @@ function doctorLogin(req, res, next) {
 }
 
 module.exports = doctorLogin;
-
-          
-          
