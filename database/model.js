@@ -1,16 +1,5 @@
 const db = require("./connection");
 
-function doctorSignUp(doctor) {
-  return db
-    .query(
-      "INSERT INTO doctors(firstname,lastname,email,title,pass, dsc,imgUrl )  VALUES($1 , $2 , $3 , $4 ,$5, $6, $7)",
-      Object.values(doctor)
-    )
-    .then((result) => {
-      console.log((data) => data.rows);
-    });
-}
-
 function getDoctorsEmail() {
   return db.query("SELECT email FROM doctors").then((data) => data.rows);
 }
