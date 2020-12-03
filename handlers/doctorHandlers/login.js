@@ -8,14 +8,17 @@ function doctorLogin(req, res, next) {
       if (doctor.length != 0) {
         if (`${doctor[0].pass}` === req.body.pass) {
           doctorObj.msg = "Welcome";
+          doctorObj.auth = true;
           res.status(200).send(doctorObj);
         } else {
           doctorObj.pass = false;
           doctorObj.msg = "Incorrect Password";
-          res.status(200).send(doctorObj);
+          doctorObj.auth = false;
+          res.status(404).send(doctorObj);
         }
       } else {
         doctorObj.email = false;
+        doctorObj.auth = false;
         doctorObj.msg = "Email is not found";
         res.status(404).send(doctorObj);
       }

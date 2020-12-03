@@ -12,12 +12,14 @@ function clientSignup(req, res, next) {
         model
           .clientSignup(clientObj)
           .then(() => {
-            res.status(200).send({ msg: "Email Created Successfully" });
+            res
+              .status(200)
+              .send({ msg: "Email Created Successfully", auth: true });
             next();
           })
           .catch(next);
       } else {
-        res.status(404).send({ msg: "invalid email" });
+        res.status(404).send({ msg: "invalid email", auth: false });
       }
     })
     .catch(next);

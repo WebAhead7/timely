@@ -28,6 +28,23 @@ CREATE TABLE calendar (
     cal_data TEXT NOT NULL
 );
 
+ INSERT INTO clients (firstname,lastname,email,pass,imgUrl) VALUES
+  ('alaa','bashiyi','alaa@gmail.com' ,'321','imgimg.jpg');
+
+  INSERT INTO clients (firstname,lastname,email,pass,imgUrl) VALUES
+  ('sam','fam','sam@gmail.com' ,'321','imgimg.jpg');
+
+  INSERT INTO clients (firstname,lastname,email,pass,imgUrl) VALUES
+  ('awad','mhmd','awad@gmail.com' ,'321','imgimg.jpg');
+
+  INSERT INTO doctors (firstname,lastname,email,title,pass,dsc,imgUrl) VALUES
+  ('emil','shihadi','awad@gmail.com' ,'eyes','321','eye doctor for all ages','imgimg.jpg');
+
+INSERT INTO doctors (firstname,lastname,email,title,pass,dsc,imgUrl) VALUES
+  ('lujain','abdullatif','luj@gmail.com' ,'spirit','321','spirit doctor for life','imgimg.jpg');
+
+INSERT INTO doctors (firstname,lastname,email,title,pass,dsc,imgUrl) VALUES
+  ('mario','saliba','mario@gmail.com' ,'conflicts','321','conflicts doctor for life','imgimg.jpg');
 
 COMMIT;
 

@@ -4,10 +4,10 @@ const clientProfile = (req, res, next) => {
   const id = req.params.id;
   getClientProfile(id).then((cal) => {
     const data = cal[0];
-    if (cal) {
+    if (cal.length !== 0) {
       res.status(200).send(data);
     } else {
-      res.status(400).send("Something went wrong");
+      res.status(404).send("Not found");
     }
   });
 };

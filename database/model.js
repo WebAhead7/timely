@@ -23,6 +23,15 @@ const getDoctorClinic = (id) => {
     .then((result) => result.rows);
 };
 
+const updateDoctorCalendar = (id, cal) => {
+  return db
+    .query(
+      `update calendar set cal_data = ($1) where calendar.id = ($2) returning cal_data`,
+      [cal, id]
+    )
+    .then((results) => results);
+};
+
 const getDoctorCalendar = (id) => {
   return db
     .query(`select * from calendar where calendar.doc_id = ${id} `)
@@ -41,10 +50,12 @@ const getDoctorProfile = (id) => {
 };
 
 const createDoctorCalendar = (id, cal) => {
-  return db.query(`insert into calendar (cal_data, doc_id) values($1, $2)`, [
-    cal,
-    id,
-  ]);
+  return db
+    .query(
+      `insert into calendar (cal_data, doc_id) values($1, $2) returning cal_data`,
+      [cal, id]
+    )
+    .then((result) => result);
 };
 
 // insert into doctors (firstname, lastname, email, title, pass, dsc, imgUrl) values('alaa','bashiyi','alaabashiy@gmail.com','skin','321321','doccctor me','linktoimage');
@@ -87,6 +98,7 @@ function doctorSignUp(doctor) {
 
 module.exports = {
   getList,
+  updateDoctorCalendar,
   getDoctorClinic,
   getClientProfile,
   getDoctorProfile,

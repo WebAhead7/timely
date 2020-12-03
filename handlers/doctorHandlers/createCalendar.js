@@ -95,17 +95,20 @@ const createCalendar = (req, res, next) => {
   const id = req.params.id;
   let isExist = true;
 
-  // getDoctorCalendar(id).then((cal) => {
-  //   if (cal.length === 0) cal = true;
-  //   cal ? (isExist = true) : (isExist = false);
-  // });
+  getDoctorCalendar(id).then((cal) => {
+    cal.length !== 0 ? (isExist = false) : (isExist = true);
 
-  if (isExist) {
-    createDoctorCalendar(id, calendar).catch((e) => console.log(e));
-    res.status(201).send("Calendar created");
-  } else {
-    res.status(301).send("Already created!");
-  }
+    if (isExist) {
+      createDoctorCalendar(id, JSON.stringify(calendar))
+        .then((cal) => {
+          console.log(cal);
+        })
+        .catch((e) => console.log(e));
+      res.status(201).send("Calendar created");
+    } else {
+      res.status(301).send("Already created!");
+    }
+  });
 };
 
 module.exports = createCalendar;
