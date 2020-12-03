@@ -101,9 +101,13 @@ const createCalendar = (req, res, next) => {
     cal.length !== 0 ? (isExist = false) : (isExist = true);
 
     if (isExist) {
-      days.forEach((day) => {
-        newCalendar[day] = calendar[day];
-      });
+      if (!days) {
+        days.forEach((day) => {
+          newCalendar[day] = calendar[day];
+        });
+      } else {
+        newCalendar = calendar;
+      }
       createDoctorCalendar(id, JSON.stringify(newCalendar))
         .then((cal) => {
           console.log(cal);
