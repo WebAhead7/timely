@@ -11,10 +11,11 @@ function clientSignup(req, res, next) {
       if (!valid) {
         model
           .clientSignup(clientObj)
-          .then(() => {
+          .then((returnedData) => {
+            const id = returnedData[0].id;
             res
               .status(200)
-              .send({ msg: "Email Created Successfully", auth: true });
+              .send({ msg: "Email Created Successfully", auth: true, id: id });
             next();
           })
           .catch(next);

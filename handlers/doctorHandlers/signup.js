@@ -9,8 +9,13 @@ function doctorSignUp(req, res, next) {
       const Valied = emailsArr.some((elem) => elem === doctor.email);
 
       if (!Valied) {
-        model.doctorSignUp(doctor).catch(next);
-        res.status(200).send({ msg: "done", auth: true });
+        model
+          .doctorSignUp(doctor)
+          .then((results) => {
+            const id = results[0].id;
+            res.status(200).send({ msg: "done", auth: true, id: id });
+          })
+          .catch(next);
       } else {
         res.status(404).send({ msg: "Invalied Email", auth: false });
       }

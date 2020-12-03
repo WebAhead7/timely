@@ -10,7 +10,7 @@ const getList = () => {
 
 function doctorLogin(email) {
   return db
-    .query(`SELECT email,pass FROM doctors WHERE email = '${email}'`)
+    .query(`SELECT email,pass,id FROM doctors WHERE email = '${email}'`)
     .then((result) => result.rows);
 }
 
@@ -65,7 +65,7 @@ function clientSignup(obj) {
   const { firstname, lastname, email, pass, imgUrl } = obj;
   return db
     .query(
-      "INSERT INTO clients (firstname,lastname,email,pass,imgUrl) VALUES ($1,$2,$3,$4,$5)",
+      "INSERT INTO clients (firstname,lastname,email,pass,imgUrl) VALUES ($1,$2,$3,$4,$5) returning id",
       [firstname, lastname, email, pass, imgUrl]
     )
     .then((data) => data.rows);
@@ -88,12 +88,10 @@ function getPasswordByEmail(email) {
 function doctorSignUp(doctor) {
   return db
     .query(
-      "INSERT INTO doctors(firstname,lastname,email,title,pass, dsc,imgUrl ) VALUES($1 , $2 , $3 , $4 ,$5, $6, $7)",
+      "INSERT INTO doctors(firstname,lastname,email,title,pass, dsc,imgUrl ) VALUES($1 , $2 , $3 , $4 ,$5, $6, $7) returning id",
       Object.values(doctor)
     )
-    .then((result) => {
-      console.log((data) => data.rows);
-    });
+    .then((result) => result.rows);
 }
 
 module.exports = {
