@@ -13,9 +13,12 @@ function clientSignup(req, res, next) {
           .clientSignup(clientObj)
           .then((returnedData) => {
             const id = returnedData[0].id;
-            res
-              .status(200)
-              .send({ msg: "Email Created Successfully", auth: true, id: id });
+            res.status(200).send({
+              msg: "Email Created Successfully",
+              auth: true,
+              id: id,
+              isDoc: false,
+            });
             next();
           })
           .catch(next);

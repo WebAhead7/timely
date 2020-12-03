@@ -13,7 +13,7 @@ router.post("/doctor/login", doctorLogin);
 
 router.post("/doctor/signup", doctorSignUp);
 
-router.get("/doctor/:id/create-calendar", createCalendar);
+router.post("/doctor/:id/create-calendar", createCalendar);
 
 router.get("/doctor/:id/doctor-calendar", doctorCalendar);
 
