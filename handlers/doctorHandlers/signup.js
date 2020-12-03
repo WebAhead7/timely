@@ -13,7 +13,9 @@ function doctorSignUp(req, res, next) {
           .doctorSignUp(doctor)
           .then((results) => {
             const id = results[0].id;
-            res.status(200).send({ msg: "done", auth: true, id: id });
+            res
+              .status(200)
+              .send({ msg: "done", auth: true, id: id, isDoc: true });
           })
           .catch(next);
       } else {

@@ -10,6 +10,7 @@ function doctorLogin(req, res, next) {
           doctorObj.msg = "Welcome";
           doctorObj.auth = true;
           doctorObj.id = doctor[0].id;
+          doctorObj.isDoc = true;
           res.status(200).send(doctorObj);
         } else {
           doctorObj.pass = false;

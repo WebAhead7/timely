@@ -25,6 +25,7 @@ function clientLogin(req, res, next) {
             obj.pass = true;
             obj.auth = true;
             obj.id = password[0].id;
+            obj.isDoc = false;
             res.status(200).send(obj);
           } else {
             obj.msg = "incorrect password";
