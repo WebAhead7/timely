@@ -8,6 +8,8 @@ Timely clinic
    That’s what the best medical websites do and that’s why medical website design is key. we needs to make this medical website interactive in order to get visitors
    engaged and increase your convenience to use it. 
    We make sure that our website allows the visitor to perform all tasks required to complete your ultimate call to action before they leave the website.
+   
+   <h2 align="center"><a href="">TRY THE WEBSITE</h2>
         
    # Features in our website:
    - The best website that help patients to choose any appointment to any doctors in different types of treatments.
