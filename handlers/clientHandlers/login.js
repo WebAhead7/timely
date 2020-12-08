@@ -1,5 +1,9 @@
 const model = require("../../database/model");
+const bcrypt = require("bcryptjs");
+const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 
+dotenv.config();
 function clientLogin(req, res, next) {
   const obj = {
     msg: "",
@@ -18,21 +22,24 @@ function clientLogin(req, res, next) {
         res.status(404).send(obj);
       } else {
         model.getPasswordByEmail(email).then((password) => {
-          console.log(password);
-          if (pass === password[0].pass) {
-            obj.msg = "Welcome";
-            obj.email = true;
-            obj.pass = true;
-            obj.auth = true;
-            obj.id = password[0].id;
-            obj.isDoc = false;
-            res.status(200).send(obj);
-          } else {
-            obj.msg = "incorrect password";
-            obj.email = true;
-            obj.pass = false;
-            res.status(404).send(obj);
-          }
+          bcrypt.compare(pass, password[0].pass).then((match) => {
+            if (match) {
+              const access_token = jwt.sign({ email }, process.env.SECRET);
+              obj.msg = "Welcome";
+              obj.email = true;
+              obj.pass = true;
+              obj.auth = true;
+              obj.id = password[0].id;
+              obj.isDoc = false;
+              res.cookie("access_token", access_token);
+              res.status(200).send(obj);
+            } else {
+              obj.msg = "incorrect password";
+              obj.email = true;
+              obj.pass = false;
+              res.status(404).send(obj);
+            }
+          });
         });
       }
     })

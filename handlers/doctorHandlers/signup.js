@@ -1,4 +1,5 @@
 const model = require("../../database/model");
+const bcrypt = require("bcryptjs");
 
 function doctorSignUp(req, res, next) {
   const doctor = req.body;
@@ -9,15 +10,23 @@ function doctorSignUp(req, res, next) {
       const Valied = emailsArr.some((elem) => elem === doctor.email);
 
       if (!Valied) {
-        model
-          .doctorSignUp(doctor)
-          .then((results) => {
-            const id = results[0].id;
-            res
-              .status(200)
-              .send({ msg: "done", auth: true, id: id, isDoc: true });
+        bcrypt
+          .genSalt(10)
+          .then((salt) => bcrypt.hash(doctor.pass, salt))
+          .then((hash) => {
+            doctor.pass = hash;
+            model
+              .doctorSignUp(doctor)
+              .then((results) => {
+                const id = results[0].id;
+                res
+                  .status(200)
+                  .send({ msg: "done", auth: true, id: id, isDoc: true });
+              })
+              .catch(next);
           })
-          .catch(next);
+          .catch((err) => console.log("hashing ", err));
+        console.log("hashed password", doctor.pass);
       } else {
         res.status(404).send({ msg: "Invalied Email", auth: false });
       }
