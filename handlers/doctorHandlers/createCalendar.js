@@ -92,22 +92,17 @@ const calendar = {
 };
 
 const createCalendar = (req, res, next) => {
-  const days = req.body;
+  // const days = req.body;
   const id = req.params.id;
-  const newCalendar = {};
   let isExist = true;
 
   getDoctorCalendar(id).then((cal) => {
     cal.length !== 0 ? (isExist = false) : (isExist = true);
 
     if (isExist) {
-      days.forEach((day) => {
-        newCalendar[day] = calendar[day];
-      });
-      createDoctorCalendar(id, JSON.stringify(newCalendar))
+      createDoctorCalendar(id, JSON.stringify(calendar))
         .then((cal) => {
           console.log(cal);
-          console.log(newCalendar);
           res.status(201).send("Calendar created");
         })
         .catch((e) => console.log(e));
