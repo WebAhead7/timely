@@ -11,10 +11,12 @@ function doctorLogin(req, res, next) {
     .then((doctor) => {
       if (doctor.length != 0) {
         bcrypt.compare(req.body.pass, doctor[0].pass).then((match) => {
+          const email = doctor[0].email;
+          const user = { email: email, isDoc: true };
           if (match) {
             console.log("doctor data", doctor[0]);
             console.log("doctor login", req.body.email);
-            const token = jwt.sign({ id: doctor[0].id }, SECRET, {
+            const token = jwt.sign(user, SECRET, {
               expiresIn: "1h",
             });
             doctorObj.msg = "Welcome";

@@ -23,8 +23,9 @@ function clientLogin(req, res, next) {
       } else {
         model.getPasswordByEmail(email).then((password) => {
           bcrypt.compare(pass, password[0].pass).then((match) => {
+            const user = { email: email, isDoc: false };
             if (match) {
-              const access_token = jwt.sign({ email }, process.env.SECRET);
+              const access_token = jwt.sign(user, process.env.SECRET);
               obj.msg = "Welcome";
               obj.email = true;
               obj.pass = true;
