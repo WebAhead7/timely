@@ -85,6 +85,12 @@ function getPasswordByEmail(email) {
     .then((password) => password.rows);
 }
 
+function getDataByEmail(email) {
+  return db
+    .query(`SELECT * FROM clients WHERE email=${email}`)
+    .then((data) => data.rows);
+}
+
 function doctorSignUp(doctor) {
   return db
     .query(
@@ -116,4 +122,5 @@ module.exports = {
   getDoctorsEmail,
   doctorLogin,
   doctorSignUp,
+  getDataByEmail,
 };
