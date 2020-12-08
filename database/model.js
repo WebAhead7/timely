@@ -89,7 +89,15 @@ function doctorSignUp(doctor) {
   return db
     .query(
       "INSERT INTO doctors(firstname,lastname,email,title,pass, dsc,imgUrl ) VALUES($1 , $2 , $3 , $4 ,$5, $6, $7) returning id",
-      Object.values(doctor)
+      [
+        doctor.firstname,
+        doctor.lastname,
+        doctor.email,
+        doctor.title,
+        doctor.pass,
+        doctor.dsc,
+        doctor.imgUrl,
+      ]
     )
     .then((result) => result.rows);
 }
