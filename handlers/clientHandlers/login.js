@@ -2,6 +2,7 @@ const model = require("../../database/model");
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
+const SECRET = "GUN8F27IVO";
 
 dotenv.config();
 function clientLogin(req, res, next) {
@@ -12,6 +13,7 @@ function clientLogin(req, res, next) {
     auth: false,
   };
   const { email, pass } = req.body;
+  console.log(email, pass);
   model
     .getClientsEmails()
     .then((emails) => {
@@ -25,7 +27,7 @@ function clientLogin(req, res, next) {
           bcrypt.compare(pass, password[0].pass).then((match) => {
             const user = { email: email, isDoc: false };
             if (match) {
-              const access_token = jwt.sign(user, process.env.SECRET);
+              const access_token = jwt.sign(user, SECRET);
               obj.msg = "Welcome";
               obj.email = true;
               obj.pass = true;
