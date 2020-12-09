@@ -19,7 +19,7 @@ CREATE TABLE clients (
     lastname TEXT NOT NULL,
     email TEXT NOT NULL,
     pass VARCHAR(255) NOT NULL,
-    imgUrl TEXT NOT NULL
+    imgUrl TEXT NOT NULL,
     appointments TEXT 
 );
 

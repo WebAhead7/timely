@@ -2,10 +2,13 @@ const model = require("../../database/model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const SECRET = process.env.JWT_SECRET;
+const SECRET = process.env.SECRET;
 
 function doctorSignUp(req, res, next) {
   const doctor = req.body;
+  const { email, isDoc } = req.body;
+  const user = { email, isDoc };
+
   model
     .getDoctorsEmail()
     .then((emails) => {

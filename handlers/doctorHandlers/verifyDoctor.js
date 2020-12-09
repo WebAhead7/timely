@@ -1,16 +1,13 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const model = require("../../database/model");
-// const SECRET = process.env.JWT_SECRET;
-const SECRET = "GUN8F27IVO";
-
+const SECRET = process.env.SECRET;
 function verifyUser(req, res, next) {
   // const token = req.cookies.access_token;
   const token = req.header("authorization");
-
   if (token) {
     const data = jwt.verify(token, SECRET);
-
+    console.log(data);
     if (data.isDoc) {
       console.log("YES");
       next();

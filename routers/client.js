@@ -6,6 +6,7 @@ const clientSignup = require("../handlers/clientHandlers/signup");
 const clientLogin = require("../handlers/clientHandlers/login");
 const clientProfile = require("../handlers/clientHandlers/profile");
 const verifiyClient = require("../handlers/clientHandlers/verifiyClient");
+const addAppointment = require("../handlers/clientHandlers/addAppointment");
 
 router.get(
   "/client/create-appointment/:docid/:clientid/:day/:hour",

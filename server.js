@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const db = require("./database/connection");
 const server = express();
 const bodyParser = require("body-parser");
+const verifiyClient = require("./handlers/clientHandlers/verifiyClient");
+const verifiyDoctor = require("./handlers/doctorHandlers/verifyDoctor");
 const cors = require("cors");
 
 server.use(cookieParser());

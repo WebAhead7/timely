@@ -18,9 +18,13 @@ const getDoctorClinic = (id) => {
   return db
     .query(
       `
-          select doctors.id ,doctors.firstname, doctors.lastname, doctors.imgUrl, doctors.title, doctors.dsc, calendar.cal_data from doctors inner join calendar on doctors.id = calendar.doc_id`
+          select doctors.id ,doctors.firstname, doctors.lastname, doctors.imgUrl, doctors.title, doctors.dsc, calendar.cal_data from doctors  inner join calendar on doctors.id = calendar.doc_id where doctors.id = ($1)`,
+      [id]
     )
-    .then((result) => result.rows);
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows;
+    });
 };
 
 const updateDoctorCalendar = (id, cal) => {

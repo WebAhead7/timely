@@ -2,7 +2,7 @@ const model = require("../../database/model");
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
-const SECRET = "GUN8F27IVO";
+const SECRET = process.env.SECRET;
 
 dotenv.config();
 function clientLogin(req, res, next) {
