@@ -3,11 +3,9 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-
 const connectionString =
   process.env.DATABASE_URL ||
-  "postgres://timelysuper:321321@localhost:5432/timely_db";
-
+  "postgres://alaabashiyi:321321@localhost:5432/timely_db";
 
 const db = new pg.Pool({ connectionString });
 
