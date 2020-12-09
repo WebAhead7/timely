@@ -9,7 +9,10 @@ const verifiyClient = require("../handlers/clientHandlers/verifiyClient");
 
 router.get(
   "/client/create-appointment/:docid/:clientid/:day/:hour",
-  createAppointment
+  verifiyClient,
+
+  createAppointment,
+  addAppointment
 );
 
 router.post("/client/signup", clientSignup);
