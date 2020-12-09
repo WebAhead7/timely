@@ -24,6 +24,7 @@ function clientLogin(req, res, next) {
         res.status(404).send(obj);
       } else {
         model.getPasswordByEmail(email).then((password) => {
+          console.log(password);
           bcrypt.compare(pass, password[0].pass).then((match) => {
             const user = { email: email, isDoc: false };
             if (match) {
@@ -33,11 +34,10 @@ function clientLogin(req, res, next) {
               obj.pass = true;
               obj.auth = true;
               obj.id = password[0].id;
-              obj.firstname = password[0].id;
-              obj.lastname = password[0].id;
+              obj.firstname = password[0].firstname;
+              obj.lastname = password[0].lastname;
               obj.isDoc = false;
               obj.token = access_token;
-
               res.cookie("access_token", access_token);
               res.status(200).send(obj);
             } else {

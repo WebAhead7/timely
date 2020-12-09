@@ -81,7 +81,7 @@ function getClientsEmails() {
 //getPasswordByEmail from DB
 function getPasswordByEmail(email) {
   return db
-    .query(`SELECT pass, id FROM clients WHERE email='${email}'`)
+    .query(`SELECT * FROM clients WHERE email='${email}'`)
     .then((password) => password.rows);
 }
 
