@@ -31,8 +31,11 @@ function clientLogin(req, res, next) {
               obj.pass = true;
               obj.auth = true;
               obj.id = password[0].id;
+              obj.firstname = password[0].id;
+              obj.lastname = password[0].id;
               obj.isDoc = false;
               obj.token = access_token;
+
               res.cookie("access_token", access_token);
               res.status(200).send(obj);
             } else {
