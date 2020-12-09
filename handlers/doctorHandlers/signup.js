@@ -1,5 +1,8 @@
 const model = require("../../database/model");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const SECRET = process.env.JWT_SECRET;
 
 function doctorSignUp(req, res, next) {
   const doctor = req.body;
@@ -19,6 +22,10 @@ function doctorSignUp(req, res, next) {
               .doctorSignUp(doctor)
               .then((results) => {
                 const id = results[0].id;
+                const token = jwt.sign(user, SECRET, {
+                  expiresIn: "1h",
+                });
+                res.cookie("access_token", token);
                 res
                   .status(200)
                   .send({ msg: "done", auth: true, id: id, isDoc: true });
