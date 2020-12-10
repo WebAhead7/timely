@@ -10,7 +10,6 @@ const createAppointment = (req, res, next) => {
     const calendar = JSON.parse(cal[0].cal_data);
     const messageObject = { message: "", status: 200 };
 
-    console.log(calendar);
     if (!checkSameDay(calendar[day], clientid)) {
       calendar[day].forEach((hours) => {
         if (hours.hour === +hour) {
@@ -30,7 +29,6 @@ const createAppointment = (req, res, next) => {
         }
       });
     } else {
-      // console.log("EE LL SS EE");
       messageObject.message =
         "you have an appointment this day, please choose another day";
       messageObject.status = 403;
@@ -38,9 +36,12 @@ const createAppointment = (req, res, next) => {
 
     // checkAllAppointments(calendar, clientid);
     const newCalendar = JSON.stringify(calendar);
-    updateDoctorCalendar(docid, newCalendar).catch((e) => console.log(e));
+    updateDoctorCalendar(docid, newCalendar)
+      .then((results) => {})
+      .catch((e) => console.log(e));
     req.params.msg = messageObject;
-    next(req, res);
+
+    next();
   });
 };
 
@@ -54,7 +55,7 @@ const checkAllAppointments = (calendar, id) => {
   Object.keys(calendar).forEach((day) => {
     if (!hasAppointment) return;
     if (calendar[day] != "days") {
-      hasAppointment = calendar[day].every((hour) => hour.takenby !== id);
+      hasAppointment = calendar[day].some((hour) => hour.takenby === id);
     }
   });
 

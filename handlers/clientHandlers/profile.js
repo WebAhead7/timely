@@ -4,6 +4,7 @@ const clientProfile = (req, res, next) => {
   const id = req.params.id;
   getClientProfile(id).then((cal) => {
     const data = cal[0];
+    data.appointments = JSON.parse(data.appointments);
     if (cal.length !== 0) {
       res.status(200).send(data);
     } else {

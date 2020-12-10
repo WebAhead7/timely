@@ -18,7 +18,7 @@ router.get("/doctor/:id/create-calendar", verifyDoctor, createCalendar);
 
 router.get("/doctor/:id/doctor-calendar", verifyDoctor, doctorCalendar);
 
-router.get("/doctor/:id/doctor-clinic", verifyDoctor, doctorClinic);
+router.get("/doctor/:id/doctor-clinic", doctorClinic);
 
 router.get("/doctor/:id/doctor-profile", verifyDoctor, doctorProfile);
 

@@ -47,5 +47,6 @@ INSERT INTO doctors (firstname,lastname,email,title,pass,dsc,imgUrl) VALUES
 INSERT INTO doctors (firstname,lastname,email,title,pass,dsc,imgUrl) VALUES
   ('mario','saliba','mario@gmail.com' ,'conflicts','321','conflicts doctor for life','imgimg.jpg');
 
+
 COMMIT;
 

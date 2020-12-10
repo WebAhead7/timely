@@ -38,13 +38,13 @@ function clientLogin(req, res, next) {
               obj.lastname = password[0].lastname;
               obj.isDoc = false;
               obj.token = access_token;
-              res.cookie("access_token", access_token);
+              res.cookie("access_token", access_token, { maxAge: 1200000000 });
               res.status(200).send(obj);
             } else {
               obj.msg = "incorrect password";
               obj.email = true;
               obj.pass = false;
-              res.status(404).send(obj);
+              res.status(400).send(obj);
             }
           });
         });

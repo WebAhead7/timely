@@ -14,8 +14,9 @@ function doctorSignUp(req, res, next) {
     .then((emails) => {
       const emailsArr = emails.map((elem) => elem.email);
       const Valied = emailsArr.some((elem) => elem === doctor.email);
-
+      const user = { email: doctor.email, isDoc: true };
       if (!Valied) {
+        console.log("HEREs");
         bcrypt
           .genSalt(10)
           .then((salt) => bcrypt.hash(doctor.pass, salt))

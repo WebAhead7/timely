@@ -2,11 +2,15 @@ const model = require("../../database/model");
 
 function addAppointment(req, res, next) {
   const { docid, clientid, day, hour, msg } = req.params;
-  const appointmentobj = { docid, hour, day };
+  const appointmentobj = { docid: docid, hour: hour, day: day };
   model
     .getClientProfile(clientid)
     .then((data) => {
-      const app = JSON.parse(data.appointments);
+      let app;
+      app = JSON.parse(data[0].appointments);
+      if (!app) {
+        app = [];
+      }
       app.push(appointmentobj);
       model
         .addAppointment(clientid, JSON.stringify(app))

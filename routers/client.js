@@ -11,7 +11,6 @@ const addAppointment = require("../handlers/clientHandlers/addAppointment");
 router.get(
   "/client/create-appointment/:docid/:clientid/:day/:hour",
   verifiyClient,
-
   createAppointment,
   addAppointment
 );

@@ -86,4 +86,21 @@ const calendar = {
   days: [],
 };
 
+const days = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+];
+
+const calendar = () => {
+  return days.map((day) => {
+    {
+    }
+  });
+};
+
 // exports.module = calendar;
