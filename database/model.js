@@ -18,18 +18,23 @@ const getDoctorClinic = (id) => {
   return db
     .query(
       `
-          select doctors.id ,doctors.firstname, doctors.lastname, doctors.imgUrl, doctors.title, doctors.dsc, calendar.cal_data from doctors inner join calendar on doctors.id = calendar.doc_id`
+          select doctors.id ,doctors.firstname, doctors.lastname, doctors.imgUrl, doctors.title, doctors.dsc, calendar.cal_data from doctors  inner join calendar on doctors.id = calendar.doc_id where doctors.id = ($1)`,
+      [id]
     )
-    .then((result) => result.rows);
+    .then((result) => {
+      return result.rows;
+    });
 };
 
 const updateDoctorCalendar = (id, cal) => {
   return db
     .query(
-      `update calendar set cal_data = ($1) where calendar.id = ($2) returning cal_data`,
+      `update calendar set cal_data = ($1) where calendar.doc_id = ($2) returning cal_data`,
       [cal, id]
     )
-    .then((results) => results);
+    .then((results) => {
+      return results.rows;
+    });
 };
 
 const getDoctorCalendar = (id) => {
@@ -40,7 +45,7 @@ const getDoctorCalendar = (id) => {
 
 const getClientProfile = (id) => {
   return db
-    .query(`select * from clients where clients.id = ${id}`)
+    .query(`select * from clients where clients.id = ($1)`, [id])
     .then((result) => result.rows);
 };
 const getDoctorProfile = (id) => {
@@ -87,7 +92,7 @@ function getPasswordByEmail(email) {
 
 function getDataByEmail(email) {
   return db
-    .query(`SELECT * FROM clients WHERE email=${email}`)
+    .query(`SELECT * FROM clients WHERE email= ($1)`, [email])
     .then((data) => data.rows);
 }
 
@@ -109,10 +114,12 @@ function doctorSignUp(doctor) {
 }
 
 function addAppointment(id, app) {
-  db.query(
-    `update clients set appointments = ($1) where clients.id = ($2) returning appointments`,
-    [app, id]
-  ).then((appointment) => appointment.rows);
+  return db
+    .query(
+      `update clients set appointments = ($1) where clients.id = ($2) returning appointments`,
+      [app, id]
+    )
+    .then((appointment) => appointment.rows);
 }
 
 module.exports = {

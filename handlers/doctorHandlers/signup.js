@@ -6,6 +6,9 @@ const SECRET = process.env.SECRET;
 
 function doctorSignUp(req, res, next) {
   const doctor = req.body;
+  const { email, isDoc } = req.body;
+  const user = { email, isDoc };
+
   model
     .getDoctorsEmail()
     .then((emails) => {

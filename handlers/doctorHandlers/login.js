@@ -2,7 +2,7 @@ const model = require("../../database/model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const SECRET = process.env.JWT_SECRET;
+const SECRET = process.env.SECRET;
 
 function doctorLogin(req, res, next) {
   const doctorObj = { email: "", msg: "", pass: "" };
@@ -23,6 +23,7 @@ function doctorLogin(req, res, next) {
             doctorObj.auth = true;
             doctorObj.id = doctor[0].id;
             doctorObj.isDoc = true;
+            doctorObj.token = token;
             res.cookie("access_token", token);
             res.status(200).send(doctorObj);
           } else {
