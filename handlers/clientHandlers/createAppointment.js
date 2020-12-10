@@ -20,6 +20,8 @@ const createAppointment = (req, res, next) => {
             hours.takenby = clientid;
             messageObject.message = "done";
             messageObject.status = 200;
+            messageObject.day = day;
+            messageObject.hour = hour;
           } else {
             console.log("ITS TAKEN");
             messageObject.message = "taken";
@@ -37,7 +39,8 @@ const createAppointment = (req, res, next) => {
     // checkAllAppointments(calendar, clientid);
     const newCalendar = JSON.stringify(calendar);
     updateDoctorCalendar(docid, newCalendar).catch((e) => console.log(e));
-    res.status(messageObject.status).send(messageObject);
+    req.params.msg = messageObject;
+    next(req, res);
   });
 };
 

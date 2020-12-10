@@ -20,6 +20,7 @@ CREATE TABLE clients (
     email TEXT NOT NULL,
     pass VARCHAR(255) NOT NULL,
     imgUrl TEXT NOT NULL
+    appointments TEXT 
 );
 
 CREATE TABLE calendar (

@@ -108,6 +108,13 @@ function doctorSignUp(doctor) {
     .then((result) => result.rows);
 }
 
+function addAppointment(id, app) {
+  db.query(
+    `update clients set appointments = ($1) where clients.id = ($2) returning appointments`,
+    [app, id]
+  ).then((appointment) => appointment.rows);
+}
+
 module.exports = {
   getList,
   updateDoctorCalendar,
@@ -123,4 +130,5 @@ module.exports = {
   doctorLogin,
   doctorSignUp,
   getDataByEmail,
+  addAppointment,
 };
