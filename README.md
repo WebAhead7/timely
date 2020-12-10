@@ -9,8 +9,7 @@ Timely clinic
    engaged and increase your convenience to use it. 
    We make sure that our website allows the visitor to perform all tasks required to complete your ultimate call to action before they leave the website.
    
-   <h2 align="center"><a href="https://timelyserver.herokuapp.com/
-">TRY THE WEBSITE</h2>
+   <h2 align="center"><a href="https://quirky-bell-01e77b.netlify.app/login">TRY THE WEBSITE</h2>
         
    # Features in our website:
    - The best website that help patients to choose any appointment to any doctors in different types of treatments.
